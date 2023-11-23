@@ -45,7 +45,7 @@ class guildConfig:
         return self.__execute("SELECT FROM Configuration WHERE guild_id = ?", guild.id).fetchone() != None
     
     def __giveGuildDataIfNotExists(self, guild: discord.Guild):
-        if self.__guildDataExists(guild.id):
+        if self.__guildDataExists(guild):
             return
         
         self.__execute("INSERT INTO Configuration VALUES (?, ?)", guild.id, json.dumps({}))
@@ -77,10 +77,10 @@ class guildConfig:
     # set config for a guild
     def save(self, guild: discord.Guild, name: str, value: any):
         # setup
-        self.__giveGuildDataIfNotExists(guild.id)
+        self.__giveGuildDataIfNotExists(guild)
         
         # get data
-        config = self.get(guild.id, name, {})
+        config = self.get(guild, name, {})
         config[name] = value
         
         # update data
@@ -88,7 +88,7 @@ class guildConfig:
         
     def get(self, guild: discord.Guild, name: str, default: any = None):
         # setup
-        self.__giveGuildDataIfNotExists(guild.id)
+        self.__giveGuildDataIfNotExists(guild)
         
         # get data
         data = self.__execute("SELECT From Configuration WHERE guild_id = ?", guild.id).fetchone()
