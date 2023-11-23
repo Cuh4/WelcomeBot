@@ -42,7 +42,7 @@ class modal(template):
             label = "Welcome Message - Message",
             placeholder = "Welcome to my very awesome server!\nWoohoo!\n**Markdown is __supported__.**",
             max_length = 2000,
-            style = discord.TextStyle.paragraph
+            style = discord.TextStyle.long
         )
         
         # add to modal
