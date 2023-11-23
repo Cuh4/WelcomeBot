@@ -12,7 +12,10 @@ os.system("color") # for windows. enables ansi or whatever
 
 # // ---- Main
 # // Print
-def __setup(title: str, msg: str, emoji: str, style: str, color: str):
+def __setup(title: str, msg: str, emoji: str, style: str, color: str, *, formatNewlines: bool = True):
+    if formatNewlines:
+        msg = msg.replace("\n", "\n" + __setup(title, "", "▶", style, color, formatNewlines = False))
+    
     return f"{style}{color}[{title}] [{datetime.datetime.now()}]{tcolor.Fore.RESET} {emoji} | {msg}{tcolor.Style.RESET_ALL}"
 
 def warn(msg: str):
