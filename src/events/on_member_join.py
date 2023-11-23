@@ -37,15 +37,18 @@ async def callback(**data):
     channel_id: int = guildConfigGlobal.get(guild, "wm_ChannelID", 0)
     
     # get channel
-    try:
-        channel = guild.get_channel(channel_id) or await guild.fetch_channel(channel_id)
-    except Exception:
-        pass
-
+    channel = guild.get_channel(channel_id)
     channelError = False
     
-    # channel couldn't be found, so let's find a different one
-    if not channel:
+    # failed to get channel, so try fetching it
+    if channel is None:
+        try:
+            channel = await guild.fetch_channel(channel_id)
+        except Exception:
+            pass
+    
+    # channel still couldn't be found, so let's find a different one
+    if channel is None:
         # cant pick a random channel
         if len(guild.channels) <= 0:
             return 
@@ -58,7 +61,7 @@ async def callback(**data):
     embed = discord.Embed(
         title = f"👋 | {title}",
         message = {message},
-        color = discord.Color.from_rgb(*[random.randint(255, 255, 255) for _ in range(3)])
+        color = discord.Color.from_rgb(*[random.randint(255, 255, 255) for _ in range(2)])
     )
     
     if channelError:
