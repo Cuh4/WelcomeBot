@@ -116,22 +116,23 @@ clientEvents = [ # thx chatgpt
 ]
 
 # // ---- Main
-async def setup(client: discord.Client):
-    # register events
-    for event in clientEvents:
-        # save event
-        savedEvent = events.event(event).save()
-
-        # listen for the actual discord event
-        async def callback(*args, **kwargs):
-            # notify
-            helpers.prettyprint.info(f"{event} was called.\nArgs: {str(args)}\nKeyword Args: {str(kwargs)}")
-            
-            # fire event
-            await savedEvent.asyncFire(*args, **kwargs)
+async def setupEvent(client: discord.Client, eventName: str, event: events.event):
+    # callback for event
+    async def callback(*args, **kwargs):
+        helpers.prettyprint.info(f"{eventName} (event) was called.")
+        await event.asyncFire(*args, **kwargs)
         
-        callback.__name__ = event
-        client.event(callback)
+    # rename callback to name of event so client recognises it
+    callback.__name__ = eventName
+    
+    # register event
+    client.event(callback)
+
+async def setup(client: discord.Client):
+    for eventName in clientEvents:
+        # register event
+        event = events.event(eventName).save()
+        await setupEvent(client, eventName, event)
     
     # event listeners
     from . import on_member_join
