@@ -95,16 +95,16 @@ class guildConfig:
         
         # get data
         config = self.__loadConfig(guild)
-        
+
         # none check
         if config is None:
             return
         
         # save config value
         config[name] = value
-        
+
         # update data
-        self.__execute("UPDATE Configuration SET config = ? WHERE guild_id = ?", guild.id, json.dumps(config))
+        self.__execute("UPDATE Configuration SET config = ? WHERE guild_id = ?", json.dumps(config), guild.id)
         
     def get(self, guild: discord.Guild, name: str, default: any = None):
         # get data
