@@ -33,7 +33,7 @@ async def callback(**data):
     # // main
     # get config stuffs
     title: str = guildConfigGlobal.get(guild, "wm_Title", guild.name)
-    message: str = guildConfigGlobal.get(guild, "wm_Message", "Welcome! Tell the server admins to use /setup.")
+    message: str = guildConfigGlobal.get(guild, "wm_Message", "**Welcome!** Tell the server admins to use `/setup`.")
     channel_id: int = guildConfigGlobal.get(guild, "wm_ChannelID", 0)
     
     # get channel
