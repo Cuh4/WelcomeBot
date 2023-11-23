@@ -42,7 +42,7 @@ class guildConfig:
         return cursor
     
     def __guildDataExists(self, guild: discord.Guild):
-        return self.__execute("SELECT FROM Configuration WHERE guild_id = ?", guild.id).fetchone() != None
+        return self.__execute("SELECT * FROM Configuration WHERE guild_id = ?", guild.id).fetchone() != None
     
     def __giveGuildDataIfNotExists(self, guild: discord.Guild):
         if self.__guildDataExists(guild):
@@ -97,7 +97,7 @@ class guildConfig:
             return default
         
         # convert to json
-        data: dict = json.loads(data)
+        data: dict = json.loads(data[1])
         
         # return
         return data.get(name, default)
