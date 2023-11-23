@@ -50,6 +50,19 @@ class guildConfig:
             return
         
         self.__execute("INSERT INTO Configuration VALUES (?, ?)", guild.id, json.dumps({}))
+                       
+    def __loadConfig(self, guild: discord.Guild) -> dict|None:
+        # setup
+        self.__giveGuildDataIfNotExists(guild)
+        
+        # get data
+        data = self.__execute("SELECT * FROM Configuration WHERE guild_id = ?", guild.id).fetchone()
+        
+        # return
+        if data is None:
+            return None
+        
+        return json.loads(data[1])
         
     # // public methods
     # validate db path
@@ -69,10 +82,10 @@ class guildConfig:
         # create table
         # note that "config" is a json dict. good practice? probably not
         self.__execute("""
-           CREATE TABLE IF NOT EXISTS Configuration (
-               guild_id INTEGER PRIMARY KEY,
-               config TEXT
-           )            
+            CREATE TABLE IF NOT EXISTS Configuration (
+                guild_id INTEGER PRIMARY KEY,
+                config TEXT
+            )            
         """)
         
     # set config for a guild
@@ -81,24 +94,25 @@ class guildConfig:
         self.__giveGuildDataIfNotExists(guild)
         
         # get data
-        config = self.get(guild, name, {})
+        config = self.__loadConfig(guild)
+        
+        # none check
+        if config is None:
+            return
+        
+        # save config value
         config[name] = value
         
         # update data
         self.__execute("UPDATE Configuration SET config = ? WHERE guild_id = ?", guild.id, json.dumps(config))
         
     def get(self, guild: discord.Guild, name: str, default: any = None):
-        # setup
-        self.__giveGuildDataIfNotExists(guild)
-        
         # get data
-        data = self.__execute("SELECT * FROM Configuration WHERE guild_id = ?", guild.id).fetchone()
+        data = self.__loadConfig(guild)
         
+        # none check
         if data is None:
-            return default
-        
-        # convert to json
-        data: dict = json.loads(data[1])
+            return None
         
         # return
         return data.get(name, default)
