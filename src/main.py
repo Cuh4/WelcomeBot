@@ -45,8 +45,11 @@ helpers.globals.save("guildConfig", discordHelpers.guildConfig("data"))
 # // Register Commands
 slashCommands.start()
 
-# // Discord Events
-events.setup()
+# // On Ready
+@client.event
+async def on_ready():
+    await events.setup(client)
+    await helpers.events.getSavedEvent("on_ready").asyncFire()
     
 # // Start Bot
 client.run(config.botToken)
