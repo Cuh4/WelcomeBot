@@ -15,11 +15,10 @@ from . import events
 
 # // ---- Main
 @events.getSavedEvent("on_member_join").attach
-async def callback(**data):
+async def callback(member: discord.Member, **kwargs):
     # // get needed vars
     # get discord stuffs
     client: discord.Client = helpers.globals.get("client")
-    member: discord.Member = data.get("member")
     guild = member.guild
     
     # get guild configuration

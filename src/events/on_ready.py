@@ -13,7 +13,7 @@ from . import events
 
 # // ---- Main
 @events.getSavedEvent("on_ready").attach
-async def callback(**data):
+async def callback(*args, **kwargs):
     # // get needed vars
     # get discord stuffs
     client: discord.Client = helpers.globals.get("client")

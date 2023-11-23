@@ -13,5 +13,5 @@ from . import events
 
 # // ---- Main
 @events.getSavedEvent("on_message").attach
-async def callback(**data):
+async def callback(*args, **kwargs):
     pass
