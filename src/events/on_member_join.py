@@ -64,6 +64,8 @@ async def callback(**data):
         color = discord.Color.from_rgb(*[random.randint(1, 255) for _ in range(3)])
     )
     
+    embed.set_thumbnail(url = guild.icon.url)
+    
     if channelError:
         embed.set_footer(text = "⚠ | Something went wrong with choosing a channel. Please tell a server admin to use the /setup command.")
         
