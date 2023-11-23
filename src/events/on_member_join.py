@@ -60,7 +60,7 @@ async def callback(**data):
     # create embed
     embed = discord.Embed(
         title = f"👋 | {title}",
-        description = {message},
+        description = f"{message}",
         color = discord.Color.from_rgb(*[random.randint(1, 255) for _ in range(3)])
     )
     
