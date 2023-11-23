@@ -61,7 +61,7 @@ async def callback(**data):
     embed = discord.Embed(
         title = f"👋 | {title}",
         message = {message},
-        color = discord.Color.from_rgb(*[random.randint(255, 255, 255) for _ in range(2)])
+        color = discord.Color.from_rgb(*[random.randint(1, 255) for _ in range(3)])
     )
     
     if channelError:
