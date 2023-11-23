@@ -91,7 +91,7 @@ class guildConfig:
         self.__giveGuildDataIfNotExists(guild)
         
         # get data
-        data = self.__execute("SELECT From Configuration WHERE guild_id = ?", guild.id).fetchone()
+        data = self.__execute("SELECT * FROM Configuration WHERE guild_id = ?", guild.id).fetchone()
         
         if data is None:
             return default
