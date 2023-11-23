@@ -73,6 +73,5 @@ class modal(template):
         
         # notify user
         await interaction.response.send_message(
-            embed = discordHelpers.embeds.success("Successfully set up the bot for your server."),
-            ephemeral = True
+            embed = discordHelpers.embeds.success("Successfully set up the bot for your server.")
         )
