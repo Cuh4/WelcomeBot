@@ -36,8 +36,7 @@ async def command(interaction: discord.Interaction, channel: discord.TextChannel
     
     if failed:
         return await interaction.response.send_message(
-            embed = discordHelpers.embeds.failure(failureMessage),
-            ephemeral = True
+            embed = discordHelpers.embeds.failure(failureMessage)
         )
         
     # // main

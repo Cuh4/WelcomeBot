@@ -36,8 +36,7 @@ async def command(interaction: discord.Interaction):
     
     if failed:
         return await interaction.response.send_message(
-            embed = discordHelpers.embeds.failure(failureMessage),
-            ephemeral = True
+            embed = discordHelpers.embeds.failure(failureMessage)
         )
         
     # // main
@@ -46,6 +45,5 @@ async def command(interaction: discord.Interaction):
     )
     
     await interaction.response.send_message(
-        embed = discordHelpers.embeds.success("Done! A preview of your server's welcome message has been sent in your server."),
-        ephemeral = True
+        embed = discordHelpers.embeds.success("Done! A preview of your server's welcome message has been sent in your server.")
     )
