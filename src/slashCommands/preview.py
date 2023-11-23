@@ -43,7 +43,9 @@ def command():
             )
             
         # // main
-        await events.getSavedEvent("on_member_join").asyncFire(interaction.user)
+        await events.getSavedEvent("on_member_join").asyncFire({
+            "member" : interaction.user
+        })
         
         await interaction.response.send_message(
             embed = discordHelpers.embeds.success("Done! A preview of your server's welcome message has been sent in your server."),
