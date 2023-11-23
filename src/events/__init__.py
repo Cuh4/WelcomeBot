@@ -3,16 +3,123 @@
 # // ---------------------------------------------------------------------
 
 # // ---- Imports
-from helpers.general import events as _events
+from helpers.general import events
 
-# // Main
-class events:
-    on_member_join = _events.event("on_member_join").save()
-    on_message = _events.event("on_message").save()
-    on_ready = _events.event("on_ready").save()
+# // ---- Variables
+clientEvents = [ # thx chatgpt
+    "on_ready",
+    "on_connect",
+    "on_disconnect",
+    "on_resumed",
+    "on_error",
+    "on_socket_raw_receive",
+    "on_socket_raw_send",
+    "on_typing",
+    "on_message",
+    "on_message_delete",
+    "on_bulk_message_delete",
+    "on_raw_message_delete",
+    "on_raw_bulk_message_delete",
+    "on_message_edit",
+    "on_raw_message_edit",
+    "on_reaction_add",
+    "on_raw_reaction_add",
+    "on_reaction_remove",
+    "on_raw_reaction_remove",
+    "on_reaction_clear",
+    "on_raw_reaction_clear",
+    "on_private_channel_delete",
+    "on_private_channel_create",
+    "on_private_channel_update",
+    "on_private_channel_pins_update",
+    "on_guild_channel_delete",
+    "on_guild_channel_create",
+    "on_guild_channel_update",
+    "on_guild_channel_pins_update",
+    "on_guild_integrations_update",
+    "on_webhooks_update",
+    "on_member_join",
+    "on_member_remove",
+    "on_member_update",
+    "on_user_update",
+    "on_guild_join",
+    "on_guild_remove",
+    "on_guild_update",
+    "on_guild_role_create",
+    "on_guild_role_delete",
+    "on_guild_role_update",
+    "on_guild_emojis_update",
+    "on_raw_socket_open",
+    "on_raw_socket_close",
+    "on_raw_socket_discover",
+    "on_voice_state_update",
+    "on_member_ban",
+    "on_member_unban",
+    "on_invite_create",
+    "on_invite_delete",
+    "on_group_join",
+    "on_group_remove",
+    "on_relationship_add",
+    "on_relationship_remove",
+    "on_application_command_error",
+    "on_guild_available",
+    "on_guild_unavailable",
+    "on_interaction_create",
+    "on_integrations_update",
+    "on_stage_instance_create",
+    "on_stage_instance_delete",
+    "on_stage_instance_update",
+    "on_thread_join",
+    "on_thread_remove",
+    "on_thread_update",
+    "on_thread_list_sync",
+    "on_thread_member_update",
+    "on_thread_members_update",
+    "on_voice_server_update",
+    "on_presence_update",
+    "on_message_create",
+    "on_invite_create",
+    "on_invite_delete",
+    "on_socket_response",
+    "on_socket_raw_receive",
+    "on_socket_raw_send",
+    "on_socket_disconnect",
+    "on_socket_connect",
+    "on_message_delete_bulk",
+    "on_reaction_clear_emoji",
+    "on_application_command_create",
+    "on_application_command_update",
+    "on_application_command_delete",
+    "on_group_join",
+    "on_group_remove",
+    "on_guild_available",
+    "on_guild_unavailable",
+    "on_stage_instance_create",
+    "on_stage_instance_delete",
+    "on_stage_instance_update",
+    "on_thread_create",
+    "on_thread_update",
+    "on_thread_delete",
+    "on_thread_list_sync",
+    "on_thread_member_update",
+    "on_thread_members_update",
+    "on_thread_delete",
+    "on_thread_list_sync",
+    "on_thread_member_update",
+    "on_thread_members_update",
+    "on_voice_server_update",
+    "on_voice_state_update",
+    "on_button_click",
+    "on_dropdown_menu",
+]
+
+# // ---- Main
+def setup():
+    # register events
+    for event in clientEvents:
+        events.event(event).save()
     
-# // ---- Import event handlers
-# we do this after loading the events otherwise shit goes crazy
-from . import on_member_join
-from . import on_message
-from . import on_ready
+    # event listeners
+    from . import on_member_join
+    from . import on_message
+    from . import on_ready

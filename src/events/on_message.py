@@ -12,6 +12,6 @@ from helpers import general as helpers
 from . import events
 
 # // ---- Main
-@events.on_message.attach
+@events.getSavedEvent("on_message").attach
 async def callback(**data):
     pass

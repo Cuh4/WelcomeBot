@@ -14,7 +14,7 @@ import ui
 from . import events
 
 # // ---- Main
-@events.on_member_join.attach
+@events.getSavedEvent("on_member_join").attach
 async def callback(**data):
     # // get needed vars
     # get discord stuffs

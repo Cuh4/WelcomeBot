@@ -12,7 +12,7 @@ from helpers import general as helpers
 from . import events
 
 # // ---- Main
-@events.on_ready.attach
+@events.getSavedEvent("on_ready").attach
 async def callback(**data):
     # // get needed vars
     # get discord stuffs
