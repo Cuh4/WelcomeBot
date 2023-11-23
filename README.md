@@ -41,4 +41,5 @@ py main.py
 
 ### **Images**
 
-![todo](imgs/todo.png)
+![all](imgs/all.png)
+![modal](imgs/modal.png)
