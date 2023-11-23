@@ -34,7 +34,7 @@ async def callback(**data):
     # get config stuffs
     title = guildConfigGlobal.get(guild, "wm_Title", guild.name)
     message = guildConfigGlobal.get(guild, "wm_Message", "Welcome! Tell the server admins to use /setup.")
-    channel_id = guildConfigGlobal.get(guild, "wm_ChannelID" or 0)
+    channel_id = guildConfigGlobal.get(guild, "wm_ChannelID", 0)
     
     # get channel
     channel = guild.get_channel(channel_id) or await guild.fetch_channel(channel_id)
