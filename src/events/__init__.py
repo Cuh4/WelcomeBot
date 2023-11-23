@@ -3,11 +3,13 @@
 # // ---------------------------------------------------------------------
 
 # // ---- Imports
+import discord
 from helpers.general import events
+from helpers import general as helpers
 
 # // ---- Variables
 clientEvents = [ # thx chatgpt
-    "on_ready",
+    "on_ready", # used in main.py
     "on_connect",
     "on_disconnect",
     "on_resumed",
@@ -114,10 +116,22 @@ clientEvents = [ # thx chatgpt
 ]
 
 # // ---- Main
-def setup():
+async def setup(client: discord.Client):
     # register events
     for event in clientEvents:
-        events.event(event).save()
+        # save event
+        savedEvent = events.event(event).save()
+
+        # listen for the actual discord event
+        async def callback(*args, **kwargs):
+            # notify
+            helpers.prettyprint.info(f"{event} was called.\nArgs: {str(args)}\nKeyword Args: {str(kwargs)}")
+            
+            # fire event
+            await savedEvent.asyncFire(*args, **kwargs)
+        
+        callback.__name__ = event
+        client.event(callback)
     
     # event listeners
     from . import on_member_join
