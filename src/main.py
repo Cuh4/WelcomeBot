@@ -15,11 +15,11 @@ from helpers import general as helpers
 
 # // ---- Variables
 # // Discord
-# intents
+# Intents
 intents = discord.Intents.default()
 intents.members = True
 
-# client
+# Bot
 client = discord.Client(
     intents = intents,
     
@@ -30,22 +30,23 @@ client = discord.Client(
     )
 )
 
+# Commands
 tree = discord.app_commands.CommandTree(client)
 
 # // ---- Main
 # // Register Globals
-# bot
+# Bot
 helpers.globals.save("client", client)
 helpers.globals.save("commandTree", tree)
 helpers.globals.save("startupTimestamp", time.time())
 
-# main
+# Main
 helpers.globals.save("guildConfig", discordHelpers.guildConfig("data"))
 
 # // Register Commands
 slashCommands.start()
 
-# // On Ready
+# // Bot Ready
 @client.event
 async def on_ready():
     await events.setup(client)
