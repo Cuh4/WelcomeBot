@@ -38,6 +38,7 @@ class guildConfig:
     def __execute(self, query: str, *parameters):
         cursor = self.__getCursor()
         cursor.execute(query, parameters)
+        self.database.commit()
 
         return cursor
     
