@@ -57,17 +57,21 @@ async def callback(**data):
         channel = random.choice(guild.channels)
         channelError = True
         
-    # send message
+    # create embed
     embed = discord.Embed(
         title = f"👋 | {title}",
-        message = {message},
+        description = {message},
         color = discord.Color.from_rgb(*[random.randint(1, 255) for _ in range(3)])
     )
     
     if channelError:
         embed.set_footer(text = "⚠ | Something went wrong with choosing a channel. Please tell a server admin to use the /setup command.")
+        
+    # create view
+    view = ui.views.welcome()
     
     await channel.send(
         content = discordHelpers.utils.mentionUser(member),
-        embed = embed
+        embed = embed,
+        view = view
     )
