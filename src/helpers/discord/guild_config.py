@@ -53,7 +53,7 @@ class guildConfig:
     # // public methods
     # validate db path
     def validateDatabasePath(self):
-        path = pathlib.Path(self.dbPath)
+        path = pathlib.Path(self.path)
         
         if path.exists():
             return
