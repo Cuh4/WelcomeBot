@@ -32,21 +32,26 @@ async def callback(**data):
     
     # // main
     # get config stuffs
-    title = guildConfigGlobal.get(guild, "wm_Title", guild.name)
-    message = guildConfigGlobal.get(guild, "wm_Message", "Welcome! Tell the server admins to use /setup.")
-    channel_id = guildConfigGlobal.get(guild, "wm_ChannelID", 0)
+    title: str = guildConfigGlobal.get(guild, "wm_Title", guild.name)
+    message: str = guildConfigGlobal.get(guild, "wm_Message", "Welcome! Tell the server admins to use /setup.")
+    channel_id: int = guildConfigGlobal.get(guild, "wm_ChannelID", 0)
     
     # get channel
-    channel = guild.get_channel(channel_id) or await guild.fetch_channel(channel_id)
+    try:
+        channel = guild.get_channel(channel_id) or await guild.fetch_channel(channel_id)
+    except Exception:
+        pass
+
     channelError = False
     
+    # channel couldn't be found, so let's find a different one
     if not channel:
         # cant pick a random channel
         if len(guild.channels) <= 0:
             return 
         
         # pick a random channel
-        channel = guild.channels
+        channel = random.choice(guild.channels)
         channelError = True
         
     # send message
