@@ -9,7 +9,7 @@ import random
 
 import config
 import slashCommands
-from events import events
+import events
 from helpers import discord as discordHelpers
 from helpers import general as helpers
 
@@ -17,7 +17,7 @@ from helpers import general as helpers
 # // Discord
 # intents
 intents = discord.Intents.default()
-intents.message_content = True
+intents.members = True
 
 # client
 client = discord.Client(
@@ -46,24 +46,7 @@ helpers.globals.save("guildConfig", discordHelpers.guildConfig("data"))
 slashCommands.start()
 
 # // Discord Events
-# On Ready
-@client.event
-async def on_ready():
-    await events.on_ready.asyncFire()
-
-# On Message
-@client.event
-async def on_message(message: discord.Message):
-    await events.on_message.asyncFire(
-        message = message
-    )
-    
-# On Member Join
-@client.event
-async def on_member_join(member: discord.Member):
-    await events.on_member_join.asyncFire(
-        member = member
-    )
+events.setup()
     
 # // Start Bot
 client.run(config.botToken)
