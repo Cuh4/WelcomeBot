@@ -52,4 +52,4 @@ async def on_ready():
     await helpers.events.getSavedEvent("on_ready").asyncFire()
     
 # // Start Bot
-client.run(config.botToken)
+client.run(config.botToken, log_handler = None)
