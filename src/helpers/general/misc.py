@@ -38,3 +38,18 @@ class failChecks:
         
     def result(self):
         return self.__failed, self.__message
+    
+# // Misc
+def createBlankFunction(name: str):
+    def func(*args, **kwargs):
+        pass
+    
+    func.__name__ = name
+    return func
+
+async def createBlankCoroutine(name: str):
+    async def func(*args, **kwargs):
+        pass
+    
+    func.__name__ = name
+    return func
