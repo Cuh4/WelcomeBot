@@ -6,4 +6,4 @@
 import discord
 
 from .template import view as template
-from .welcomeView import view as quote
+from .welcomeView import view as welcome
