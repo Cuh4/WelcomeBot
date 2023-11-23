@@ -1,4 +1,4 @@
 __pycache__/
 
 /src/config.py
-/src/guild_config.db
+/src/data/
