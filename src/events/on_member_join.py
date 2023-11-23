@@ -54,7 +54,7 @@ async def callback(**data):
             return 
         
         # pick a random channel
-        channel = random.choice(guild.channels)
+        channel = random.choice(guild.text_channels)
         channelError = True
         
     # create embed
