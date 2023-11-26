@@ -11,10 +11,8 @@ from helpers import discord as discordHelpers
 from helpers import general as helpers
 import ui
 
-from . import events
-
 # // ---- Main
-@events.getSavedEvent("on_member_join").attach
+@helpers.events.getSavedEvent("on_member_join").attach
 async def callback(member: discord.Member, **kwargs):
     # // get needed vars
     # get discord stuffs
