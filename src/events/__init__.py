@@ -9,7 +9,7 @@ from helpers import general as helpers
 
 # // ---- Variables
 clientEvents = [ # thx chatgpt
-    "on_ready", # used in main.py
+    "on_ready",
     "on_connect",
     "on_disconnect",
     "on_resumed",
