@@ -1,5 +1,5 @@
 # // ---------------------------------------------------------------------
-# // ------- [Welcome Bot] Events Init
+# // ------- [Discord Chatbot v2] Events Init
 # // ---------------------------------------------------------------------
 
 # // ---- Imports
@@ -8,12 +8,13 @@ from helpers.general import events
 from helpers import general as helpers
 
 # // ---- Variables
-clientEvents = [ # thx chatgpt
+customEvents = []
+
+discordEvents = [ # thx chatgpt
     "on_ready",
     "on_connect",
     "on_disconnect",
     "on_resumed",
-    "on_error",
     "on_socket_raw_receive",
     "on_socket_raw_send",
     "on_typing",
@@ -116,25 +117,37 @@ clientEvents = [ # thx chatgpt
 ]
 
 # // ---- Main
-async def setupEvent(client: discord.Client, eventName: str, event: events.event):
-    # callback for event
-    async def callback(*args, **kwargs):
-        helpers.prettyprint.info(f"{eventName} (event) was called.")
-        await event.asyncFire(*args, **kwargs)
-        
-    # rename callback to name of event so client recognises it
-    callback.__name__ = eventName
-    
-    # register event
-    client.event(callback)
-
 async def setup(client: discord.Client):
-    for eventName in clientEvents:
+    # // sub-functions
+    async def setupDiscordEvent(client: discord.Client, event: events.event):
+        # callback for event
+        async def callback(*args, **kwargs):
+            helpers.prettyprint.info(f"{event.name} (event) was called.")
+            await event.asyncFire(*args, **kwargs)
+            
+        # rename callback to name of event so client recognises it
+        callback.__name__ = event.name
+        
         # register event
-        event = events.event(eventName).save()
-        await setupEvent(client, eventName, event)
+        client.event(callback)
+        
+    async def setupEvents(target: list[str], *, registerDiscord: bool = False):
+        for eventName in target:
+            event = events.event(eventName).save()
+            
+            if not registerDiscord:
+                return
+            
+            await setupDiscordEvent(client, event)
+    
+    # // main
+    # setup custom events
+    await setupEvents(customEvents)
+    
+    # setup discord events
+    await setupEvents(discordEvents, registerDiscord = True)
     
     # event listeners
     from . import on_member_join
     from . import on_message
-    from . import on_ready
+    from . import on_report
