@@ -150,4 +150,4 @@ async def setup(client: discord.Client):
     # event listeners
     from . import on_member_join
     from . import on_message
-    from . import on_report
+    from . import on_ready
